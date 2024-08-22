@@ -1522,19 +1522,24 @@ class CheckOutScreen extends GetView<CheckOutController> {
                                                       fontStyle:
                                                           FontStyle.normal,
                                                       fontSize: 15.sp)),
-                                              Container(
-                                                  margin: EdgeInsets.only(
-                                                      top: 19.h, bottom: 23.h),
-                                                  child: GlobalText(
-                                                      "Notes for delivery",
-                                                      color: const Color(
-                                                          0xff111c26),
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontSize: 20.sp)),
-                                              Container(
+                                              controller.select.value ==
+                                                      "Delivered"
+                                                  ? Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 19.h,
+                                                          bottom: 23.h),
+                                                      child: GlobalText(
+                                                          "Notes for delivery",
+                                                          color: const Color(
+                                                              0xff111c26),
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                          fontSize: 20.sp))
+                                                  : Container(),
+                                                   controller.select.value ==
+                                                      "Delivered" ? Container(
                                                   margin: EdgeInsets.symmetric(
                                                       horizontal: 0.w),
                                                   child: TextFormField(
@@ -1586,7 +1591,7 @@ class CheckOutScreen extends GetView<CheckOutController> {
                                                           fontSize: 16.sp),
                                                       hintText: "Type Here...",
                                                     ),
-                                                  )),
+                                                  )) : Container(),
                                               SizedBox(height: 15.h),
                                               GestureDetector(
                                                 onTap: () async {

@@ -140,11 +140,12 @@ class CheckOutController extends GetxController {
   }
 
   Future<void> getPromo(String code) async {
+    print(code);
+    print(cart.value.restaurantId);
     final value = await Api.checkPromo(code, cart.value.restaurantId);
-    print(value);
     if (value != null && value["value"] != "") {
       String amt = await Api.checkValid(code);
-      print(amt);
+      print("checkValid " + amt);
       if (double.parse(cart.value.getTotalOfData().toString()) >=
           double.parse(amt)) {
         promo.value = double.tryParse(value["value"]) ?? 0.0;
@@ -160,7 +161,7 @@ class CheckOutController extends GetxController {
       }
       update();
     }
-    if (value["value"].toString().isEmpty) {
+    if (value == null) {
       print("k");
       Get.rawSnackbar(
         backgroundColor: Colors.red,
@@ -168,6 +169,7 @@ class CheckOutController extends GetxController {
         duration: const Duration(seconds: 3),
         message: "Invalid Promocode",
       );
+          update();
     }
   }
 

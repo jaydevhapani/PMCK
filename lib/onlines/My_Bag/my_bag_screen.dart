@@ -30,7 +30,12 @@ class MyBagScreen extends GetView<MyBagController> {
                     child: SingleChildScrollView(
                       child: Column(children: [
                         appBar("My Bag", true, () {
-                          Get.back();
+                          // Get.back();
+                          if (controller.cart == null) {
+                            Get.back();
+                          } else {
+                            showAlertDialog(context);
+                          }
                         }),
                         controller.cart == null
                             ? GlobalText("No Items Found!!", fontSize: 30.sp)
@@ -207,7 +212,12 @@ class MyBagScreen extends GetView<MyBagController> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () {
-                                                              controller.removeBagItem(controller.cart!.value.items![index]);
+                                                              controller.removeBagItem(
+                                                                  controller
+                                                                          .cart!
+                                                                          .value
+                                                                          .items![
+                                                                      index]);
                                                             },
                                                             child: Container(
                                                                 margin: EdgeInsets
@@ -518,4 +528,36 @@ class MyBagScreen extends GetView<MyBagController> {
       ),
     );
   }
+}
+
+void showAlertDialog(BuildContext context) {
+  // Set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(
+      "Alert!",
+      style: TextStyle(color: Colors.black),
+    ),
+    content: Text(
+      "Going back will remove all items",
+      style: TextStyle(color: Colors.black),
+    ),
+    actions: [
+      TextButton(
+        child: Text("OK"),
+        onPressed: () {
+          // Close the dialog when OK is pressed
+          Get.back();
+          Get.back();
+        },
+      ),
+    ],
+  );
+
+  // Show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
